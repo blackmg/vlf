@@ -48,15 +48,17 @@ kotlin {
 mavenPublishing {
     publishToMavenCentral()
 
+    // https://vanniktech.github.io/gradle-maven-publish-plugin/central/
 //    signAllPublications()
 
     coordinates(group.toString(), "vlf", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        name = "VLF"
+        description = "Vision Log Facade"
+        inceptionYear = "2025"
+        url = "https://github.com/blackmg/vlf"
+
         licenses {
             license {
                 name = "XXX"
