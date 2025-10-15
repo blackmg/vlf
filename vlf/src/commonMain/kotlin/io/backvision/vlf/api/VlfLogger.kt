@@ -13,7 +13,7 @@ fun <R : Any> R.vlfLogger(vararg tags: String): Lazy<VlfLogger> {
 fun VlfLogger.withTags(vararg tags: String): VlfLogger =
     vlfLogger(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
 
-fun vlfLogger(source: String, tags: List<String>): VlfLogger = VlfLoggerImpl(source, tags)
+fun vlfLogger(source: String, tags: List<String> = emptyList()): VlfLogger = VlfLoggerImpl(source, tags)
 
 interface VlfLogger {
 
