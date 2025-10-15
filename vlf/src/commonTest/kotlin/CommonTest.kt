@@ -1,5 +1,5 @@
+import io.backvision.vlf.api.Vlf
 import io.backvision.vlf.api.VlfLogEvent
-import io.backvision.vlf.api.VlfLoggerSetup
 import io.backvision.vlf.api.vlfLogger
 import io.backvision.vlf.api.withTags
 import kotlin.test.Test
@@ -9,17 +9,17 @@ class CommonTest {
     val log by vlfLogger()
 
     init {
-        VlfLoggerSetup.installSystemOutPlatform()
+        Vlf.installSystemOutPlatform()
     }
 
     @Test
     fun basics() {
-        VlfLoggerSetup.installFilter { it.level != VlfLogEvent.Level.DEBUG }
+        Vlf.installFilter { it.level != VlfLogEvent.Level.DEBUG }
 
         log.info { "Some Info" }
         log.debug { "Some Debug" }
 
-        VlfLoggerSetup.clearFilters()
+        Vlf.clearFilters()
     }
 
     @Test

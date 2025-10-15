@@ -1,19 +1,11 @@
 package io.backvision.vlf.api
 
 import io.backvision.vlf.impl.VlfLoggerImpl
-import kotlin.reflect.KClass
 
-
-fun KClass<*>.loggerSource(): String = simpleName.toString()
-
-fun <R : Any> R.vlfLogger(vararg tags: String): Lazy<VlfLogger> {
-    return lazy { vlfLogger(source = this::class.loggerSource(), tags = tags.toList()) }
-}
 
 fun VlfLogger.withTags(vararg tags: String): VlfLogger =
-    vlfLogger(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
+    Vlf.loggerFrom(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
 
-fun vlfLogger(source: String, tags: List<String> = emptyList()): VlfLogger = VlfLoggerImpl(source, tags)
 
 interface VlfLogger {
 

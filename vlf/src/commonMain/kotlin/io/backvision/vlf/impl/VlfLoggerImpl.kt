@@ -1,9 +1,9 @@
 package io.backvision.vlf.impl
 
+import io.backvision.vlf.api.Vlf
 import io.backvision.vlf.api.VlfLogEvent
 import io.backvision.vlf.api.VlfLogEvent.Level.*
 import io.backvision.vlf.api.VlfLogger
-import io.backvision.vlf.api.VlfLoggerSetup
 
 open class VlfLoggerImpl(override val source: String, tags: List<String>) : VlfLogger {
 
@@ -40,6 +40,6 @@ open class VlfLoggerImpl(override val source: String, tags: List<String>) : VlfL
     }
 
     open fun log(logEvent: VlfLogEvent) {
-        VlfLoggerSetup.send(logEvent)
+        Vlf.send(logEvent)
     }
 }

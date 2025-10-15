@@ -1,12 +1,19 @@
 package io.backvision.vlf.api
 
+import io.backvision.vlf.api.Vlf.loggerFrom
+import io.backvision.vlf.api.Vlf.loggerSource
 import io.backvision.vlf.impl.PrintLoggerBackend
+import io.backvision.vlf.impl.VlfLoggerImpl
 import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
+import kotlin.reflect.KClass
 
 expect val platformLoggerProcessor: VlfLogProcessor
 
-object VlfLoggerSetup {
+fun <R : Any> R.vlfLogger(vararg tags: String): Lazy<VlfLogger> =
+    lazy { loggerFrom(source = this::class.loggerSource(), tags = tags.toList()) }
+
+object Vlf {
 
     private val lock = reentrantLock()
     private val processors = mutableListOf<VlfLogProcessor>()
@@ -16,6 +23,10 @@ object VlfLoggerSetup {
 
     val platform: VlfLogProcessor
         get() = overriddenPlatform ?: platformLoggerProcessor
+
+    fun KClass<*>.loggerSource(): String = simpleName.toString()
+
+    fun loggerFrom(source: String, tags: List<String> = emptyList()): VlfLogger = VlfLoggerImpl(source, tags)
 
     private fun withLock(block: () -> Unit) = lock.withLock(block)
 
@@ -43,6 +54,6 @@ object VlfLoggerSetup {
             processors.forEach { it.onLogEvent(logEvent) }
         }
     }
-
-
 }
+
+
