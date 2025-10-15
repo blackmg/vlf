@@ -9,13 +9,15 @@ data class VlfLogEvent(
     val ex: Throwable? = null,
     val tags: List<String>,
 ) {
-    enum class Level { VERBOSE, DEBUG, INFO, WARN, ERROR }
+    enum class Level(val shortName: String) {
+        VERBOSE("V"), DEBUG("D"), INFO("I"), WARN("W"), ERROR("E")
+    }
 
     val msg: String by lazy { msgProvider() }
 
     private val toString: String by lazy {
         buildString {
-            append(level)
+            append(level.shortName)
             append(":")
             append(sourceAndTags)
             append(" ")
