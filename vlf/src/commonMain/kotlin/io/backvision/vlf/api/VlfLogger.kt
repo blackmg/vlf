@@ -6,14 +6,14 @@ import kotlin.reflect.KClass
 
 fun KClass<*>.loggerSource(): String = simpleName.toString()
 
-fun <R : Any> R.klfLogger(vararg tags: String): Lazy<VlfLogger> {
-    return lazy { klfLogger(source = this::class.loggerSource(), tags = tags.toList()) }
+fun <R : Any> R.vlfLogger(vararg tags: String): Lazy<VlfLogger> {
+    return lazy { vlfLogger(source = this::class.loggerSource(), tags = tags.toList()) }
 }
 
 fun VlfLogger.withTags(vararg tags: String): VlfLogger =
-    klfLogger(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
+    vlfLogger(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
 
-fun klfLogger(source: String, tags: List<String>): VlfLogger = VlfLoggerImpl(source, tags)
+fun vlfLogger(source: String, tags: List<String>): VlfLogger = VlfLoggerImpl(source, tags)
 
 interface VlfLogger {
 

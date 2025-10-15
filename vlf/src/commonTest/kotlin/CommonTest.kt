@@ -1,12 +1,12 @@
 import io.backvision.vlf.api.VlfLogEvent
 import io.backvision.vlf.api.VlfLoggerSetup
-import io.backvision.vlf.api.klfLogger
+import io.backvision.vlf.api.vlfLogger
 import io.backvision.vlf.api.withTags
 import kotlin.test.Test
 
 class CommonTest {
 
-    val log by klfLogger()
+    val log by vlfLogger()
 
     init {
         VlfLoggerSetup.installSystemOutPlatform()
