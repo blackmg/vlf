@@ -1,0 +1,37 @@
+package io.backvision.vlf.api
+
+import io.backvision.vlf.impl.VlfLoggerImpl
+import kotlin.reflect.KClass
+
+
+fun KClass<*>.loggerSource(): String = simpleName.toString()
+
+fun <R : Any> R.klfLogger(vararg tags: String): Lazy<VlfLogger> {
+    return lazy { klfLogger(source = this::class.loggerSource(), tags = tags.toList()) }
+}
+
+fun VlfLogger.withTags(vararg tags: String): VlfLogger =
+    klfLogger(source = source, tags = tags.toList() + (this as VlfLoggerImpl).additionalTags)
+
+fun klfLogger(source: String, tags: List<String>): VlfLogger = VlfLoggerImpl(source, tags)
+
+interface VlfLogger {
+
+    val source: String
+
+    fun verbose(vararg tags: String, msg: () -> String)
+    fun verbose(msg: String) = verbose { msg }
+
+    fun debug(vararg tags: String, msg: () -> String)
+    fun debug(msg: String) = debug { msg }
+
+    fun info(vararg tags: String, msg: () -> String)
+    fun info(msg: String) = info { msg }
+
+    fun warn(vararg tags: String, msg: () -> String)
+    fun warn(msg: String) = warn { msg }
+
+    fun error(ex: Throwable? = null, msg: String) = error(ex) { msg }
+    fun error(ex: Throwable? = null, vararg tags: String, msg: () -> String)
+
+}
