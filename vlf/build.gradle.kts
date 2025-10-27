@@ -12,6 +12,7 @@ version = "0.0.1"
 
 kotlin {
     jvm()
+    jvmToolchain(17)
     androidLibrary {
         namespace = "io.backvision"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -26,7 +27,7 @@ kotlin {
         compilations.configureEach {
             compilerOptions.configure {
                 jvmTarget.set(
-                    JvmTarget.JVM_11
+                    JvmTarget.JVM_17
                 )
             }
         }

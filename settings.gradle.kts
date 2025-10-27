@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "vlf"
 include(":vlf")
-
+include("slf4j")

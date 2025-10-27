@@ -36,6 +36,10 @@ object Vlf {
         }
     }
 
+    fun installPlatform(processor: VlfLogProcessor) = withLock {
+        overriddenPlatform = processor
+    }
+
     fun installProcessor(processor: VlfLogProcessor) = withLock {
         processors.add(processor)
     }
