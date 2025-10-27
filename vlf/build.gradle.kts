@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "io.backvision"
+group = "io.backvision.vlf"
 version = "0.0.1"
 
 kotlin {
