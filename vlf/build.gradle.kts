@@ -14,7 +14,7 @@ kotlin {
     jvm()
     jvmToolchain(17)
     androidLibrary {
-        namespace = "io.backvision"
+        namespace = "io.backvision.vlf"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
