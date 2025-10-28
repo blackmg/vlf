@@ -7,6 +7,7 @@ plugins {
 
 val vlfVersion: String by project
 version = vlfVersion
+group = "io.backvision.vlf"
 
 kotlin {
     androidTarget {
