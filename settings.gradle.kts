@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "vlf"
 include(":vlf")
 include("vlf-slf4j")
+include(":vlf-compose")
