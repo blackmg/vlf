@@ -8,9 +8,9 @@ class CommonTest {
 
     val log by vlfLogger()
 
-    init {
-        Vlf.installSystemOutPlatform()
-    }
+//    init {
+//        Vlf.installSystemOutPlatform()
+//    }
 
     @Test
     fun basics() {
