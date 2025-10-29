@@ -2,7 +2,7 @@ package io.backvision.vlf.api
 
 import io.backvision.vlf.api.Vlf.loggerFrom
 import io.backvision.vlf.api.Vlf.loggerSource
-import io.backvision.vlf.impl.PrintLoggerBackend
+import io.backvision.vlf.impl.PrintLoggerProcessor
 import io.backvision.vlf.impl.VlfLoggerImpl
 import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
@@ -39,8 +39,8 @@ object Vlf {
     private fun withLock(block: () -> Unit) = lock.withLock(block)
 
     fun installSystemOutPlatform() = withLock {
-        if (overriddenPlatform !is PrintLoggerBackend) {
-            overriddenPlatform = PrintLoggerBackend()
+        if (overriddenPlatform !is PrintLoggerProcessor) {
+            overriddenPlatform = PrintLoggerProcessor()
         }
     }
 

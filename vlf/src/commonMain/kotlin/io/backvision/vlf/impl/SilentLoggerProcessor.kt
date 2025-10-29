@@ -4,7 +4,7 @@ import io.backvision.vlf.api.Vlf
 import io.backvision.vlf.api.VlfLogEvent
 import io.backvision.vlf.api.VlfLogProcessor
 
-class SilentLoggerBackend : VlfLogProcessor {
+class SilentLoggerProcessor : VlfLogProcessor {
 
     companion object {
         private var installed: Boolean = false
@@ -12,7 +12,7 @@ class SilentLoggerBackend : VlfLogProcessor {
         fun install() {
             if (!installed) {
                 installed = true
-                Vlf.installPlatform(SilentLoggerBackend())
+                Vlf.installPlatform(SilentLoggerProcessor())
             }
         }
     }

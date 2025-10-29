@@ -1,22 +1,10 @@
 package io.backvision.vlf.api
 
-import io.backvision.vlf.impl.PrintLoggerBackend
+import io.backvision.vlf.impl.PrintLoggerProcessor
 
 actual val platformServiceLocator: VlfServiceLocator = VlfServiceLocator { load() }
 
 
-fun load(): VlfLogProcessor {
-    println("<top>.load")
-    val clazz = Class.forName("io.backvision.vlf.jvm.VlfServiceLocatorImpl")
-    println("clazz = ${clazz}")
+fun load(): VlfLogProcessor = (Class.forName("io.backvision.vlf.jvm.VlfServiceLocatorImpl")
+    .newInstance() as? VlfServiceLocator)?.loadPlatformDefault() ?: PrintLoggerProcessor()
 
-    if (clazz != null) {
-        val instance = clazz.newInstance() as? VlfServiceLocator
-        println("instance = ${instance}")
-        if (instance != null) {
-            return instance.loadPlatformDefault()
-        }
-    }
-    return PrintLoggerBackend()
-
-}
