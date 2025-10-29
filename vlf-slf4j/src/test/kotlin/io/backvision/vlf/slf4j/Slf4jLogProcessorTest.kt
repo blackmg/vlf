@@ -1,7 +1,6 @@
 package io.backvision.vlf.slf4j
 
 import io.backvision.vlf.api.vlfLogger
-import io.backvision.vlf.io.backvision.vlf.slf4j.Slf4jLogProcessor
 import kotlin.test.Test
 
 class TestSlf4j {
@@ -20,10 +19,6 @@ class TestSlf4j {
 }
 
 class Slf4jLogProcessorTest {
-
-    init {
-        Slf4jLogProcessor.install()
-    }
 
     @Test
     fun basics() {

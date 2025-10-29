@@ -1,4 +1,4 @@
-package io.backvision.vlf.io.backvision.vlf.slf4j
+package io.backvision.vlf.slf4j
 
 import io.backvision.vlf.api.Vlf
 import io.backvision.vlf.api.VlfLogEvent
@@ -32,19 +32,14 @@ class Slf4jLogProcessor : VlfLogProcessor {
 
     @Suppress("CheckResult")
     override fun onLogEvent(logEvent: VlfLogEvent) {
-//        println("Slf4jLogProcessor.onLogEvent ${logEvent}")
-        // returns NOPLogger if nothing found
         val logger: Logger = LoggerFactory.getLogger(logEvent.source)
 
-        val builder = logger.makeLoggingEventBuilder(logEvent.level.toSlf())
-            .setMessage(logEvent.msgProvider)
-
-        logEvent.ex?.let { builder.setCause(it) }
-        logEvent.tags.takeIf { it.isNotEmpty() }?.onEach {
-            val marker = MarkerFactory.getMarker(it);
-            builder.addMarker(marker)
-        }
-
-        builder.log()
+        return logger.makeLoggingEventBuilder(logEvent.level.toSlf()).apply {
+            setMessage(logEvent.msgProvider)
+            logEvent.ex?.let { setCause(it) }
+            logEvent.tags.takeIf { it.isNotEmpty() }?.onEach {
+                addMarker(MarkerFactory.getMarker(it))
+            }
+        }.log()
     }
 }

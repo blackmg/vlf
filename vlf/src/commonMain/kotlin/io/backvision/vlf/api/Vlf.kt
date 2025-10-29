@@ -8,7 +8,13 @@ import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
 import kotlin.reflect.KClass
 
-expect val platformLoggerProcessor: VlfLogProcessor
+expect val platformServiceLocator: VlfServiceLocator
+
+fun interface VlfServiceLocator {
+
+    fun loadPlatformDefault(): VlfLogProcessor
+}
+
 
 fun <R : Any> R.vlfLogger(vararg tags: String): Lazy<VlfLogger> =
     lazy { loggerFrom(source = this::class.loggerSource(), tags = tags.toList()) }
@@ -21,8 +27,10 @@ object Vlf {
 
     var overriddenPlatform: VlfLogProcessor? = null
 
+    val loadedPlatformProcessor: VlfLogProcessor by lazy { platformServiceLocator.loadPlatformDefault() }
+
     val platform: VlfLogProcessor
-        get() = overriddenPlatform ?: platformLoggerProcessor
+        get() = overriddenPlatform ?: loadedPlatformProcessor
 
     fun KClass<*>.loggerSource(): String = simpleName.toString()
 

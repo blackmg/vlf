@@ -40,6 +40,9 @@ kotlin {
             implementation("org.jetbrains.kotlinx:atomicfu:0.30.0-beta")
         }
 
+        jvmMain.dependencies {
+
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
