@@ -4,14 +4,16 @@ import io.backvision.vlf.api.Vlf
 import io.backvision.vlf.api.VlfLogEvent
 import io.backvision.vlf.api.VlfLogProcessor
 
-class PrintLoggerBackend : VlfLogProcessor {
+class SilentLoggerBackend : VlfLogProcessor {
 
-    private var installed: Boolean = false
+    companion object {
+        private var installed: Boolean = false
 
-    fun install() {
-        if (!installed) {
-            installed = true
-            Vlf.installPlatform(PrintLoggerBackend())
+        fun install() {
+            if (!installed) {
+                installed = true
+                Vlf.installPlatform(SilentLoggerBackend())
+            }
         }
     }
 

@@ -20,7 +20,7 @@ class Slf4jLogProcessor : VlfLogProcessor {
 
     companion object {
 
-        var installed: Boolean = false
+        private var installed: Boolean = false
 
         fun install() {
             if (!installed) {
